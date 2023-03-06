@@ -22,8 +22,8 @@ export async function login(req, res) {
       });
     }
 
-    res.json({
-      isAuth: true,
+    res.status(200).json({
+      message: 'Успешная авторизация',
     });
   } catch (error) {
     console.log(err);
@@ -46,7 +46,7 @@ export async function register(req, res) {
 
     const user = await doc.save();
 
-    res.json({
+    res.status(200).json({
       message: 'Пользователь зарегистрирован',
     });
   } catch (err) {

@@ -10,7 +10,11 @@ export async function createTechnique(req, res) {
 
     const technique = await doc.save();
 
-    res.json(technique);
+    if (technique) {
+      res.status(200).json({
+        message: 'Информация о технике добавлена',
+      });
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -22,7 +26,7 @@ export async function createTechnique(req, res) {
 export async function getTechniques(req, res) {
   try {
     const techniques = await TechniqueModel.find();
-    res.json(techniques);
+    res.status(200).json(techniques);
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -35,7 +39,7 @@ export async function getTechnique(req, res) {
   try {
     const { id } = req.params;
     const technique = await TechniqueModel.findById(id);
-    res.json(technique);
+    res.status(200).json(technique);
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -48,9 +52,12 @@ export async function deleteTechnique(req, res) {
   try {
     const { id } = req.params;
     const technique = await TechniqueModel.findByIdAndDelete(id);
-    res.json({
-      message: 'Информация о технике удалена',
-    });
+
+    if (technique) {
+      res.status(200).json({
+        message: 'Информация о технике удалена',
+      });
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -69,7 +76,7 @@ export async function updateTechnique(req, res) {
       count: req.body.count,
     });
 
-    res.json({
+    res.status(200).json({
       message: 'Информация о технике обновлена',
     });
   } catch (error) {
